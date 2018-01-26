@@ -1,3 +1,5 @@
+import random
+
 from Cell import Cell
 
 
@@ -25,3 +27,25 @@ class Grid(object):
                 cell.south = self.array[irow + 1][icolumn]
                 cell.west = self.array[irow][icolumn - 1]
                 cell.east = self.array[irow][icolumn + 1]
+
+    def get(self, row, col):
+        """ same as def [](row, column) """
+        if 0 <= row < self.rows and 0 <= col < len(self.array[row]):
+            return self.array[row][col]
+        else:
+            return None
+
+    def random_cell(self):
+        return self.array[random.randint(0, self.rows - 1)][random.randint(0, self.columns - 1)]
+
+    def size(self):
+        return self.rows * self.columns
+
+    def each_row(self):
+        for row in self.array:
+            yield row
+
+    def each_cell(self):
+        for row in self.each_row():
+            for cell in row:
+                yield cell
